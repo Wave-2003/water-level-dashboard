@@ -169,7 +169,7 @@
         </div>
 
         <!-- Right: Control Buttons Bar (Row 2 on Mobile, Right on Desktop) -->
-        <div class="flex items-center justify-between sm:justify-end gap-1.5 w-full sm:w-auto shrink-0 p-1 sm:p-0 bg-slate-100/90 dark:bg-slate-800/90 sm:bg-transparent sm:dark:bg-transparent rounded-xl border border-slate-200/60 dark:border-slate-700/60 sm:border-0 shadow-2xs sm:shadow-none">
+        <div class="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 w-full sm:w-auto shrink-0 p-1 sm:p-0 bg-slate-100/90 dark:bg-slate-800/90 sm:bg-transparent sm:dark:bg-transparent rounded-xl border border-slate-200/60 dark:border-slate-700/60 sm:border-0 shadow-2xs sm:shadow-none max-w-full">
           <button id="livePollingBtn" title="สลับโหมดดึงข้อมูลอัตโนมัติ" class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg sm:rounded-xl bg-white dark:bg-slate-900 text-cyan-800 dark:text-cyan-200 border border-cyan-300/40 text-[10px] sm:text-[11px] font-semibold transition active:scale-95 no-wrap shadow-xs">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="livePollingText">สุ่มดึง 3 วิ</span>
@@ -184,7 +184,7 @@
                     <!-- Admin Auth Controls (Login / Admin Badge / Logout) -->
           <!-- Admin Auth Controls (Login / Admin Badge / Logout) -->
           <!-- Mode Switcher Button (Link to Simulation / Admin Mode) -->
-          <a href="index.html" title="สลับไปโหมดจำลอง / Admin" class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-amber-500/10 hover:bg-amber-500/20 active:scale-95 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-bold text-xs sm:text-sm transition flex items-center gap-1.5 shadow-xs shrink-0 cursor-pointer no-wrap">
+          <a href="index.html" title="สลับไปโหมดจำลอง / Admin" class="px-2 py-1.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-amber-500/10 hover:bg-amber-500/20 active:scale-95 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-bold text-xs sm:text-sm transition flex items-center gap-1.5 shadow-xs shrink-0 cursor-pointer no-wrap">
             <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>โหมดจำลอง / Admin</span>
           </a>
@@ -548,14 +548,17 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="mt-6 sm:mt-8 text-center text-xs text-slate-500 dark:text-slate-500 space-y-1">
-      <div class="flex items-center justify-center gap-1.5 text-cyan-700 dark:text-cyan-400 text-[11px]">
-        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span class="no-wrap">ระดับน้ำอาจเปลี่ยนแปลงตามการระบายน้ำของฝายและปริมาณฝนสะสม โปรดติดตามการแจ้งเตือนอย่างใกล้ชิด</span>
+    <footer class="mt-6 sm:mt-8 text-center text-xs text-slate-500 dark:text-slate-500 space-y-2 px-2 max-w-full overflow-hidden">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 text-cyan-700 dark:text-cyan-400 text-[10px] sm:text-[11px] text-center max-w-full">
+        <div class="flex items-center gap-1 shrink-0">
+          <svg class="w-3.5 h-3.5 shrink-0 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="font-bold sm:font-normal">ข้อแนะนำ:</span>
+        </div>
+        <span class="text-center break-words leading-relaxed max-w-full">ระดับน้ำอาจเปลี่ยนแปลงตามการระบายน้ำของฝายและปริมาณฝนสะสม โปรดติดตามการแจ้งเตือนอย่างใกล้ชิด</span>
       </div>
-      <p class="text-[10px]">
+      <p class="text-[9px] sm:text-[10px] text-slate-400 dark:text-slate-500 text-center break-words leading-relaxed max-w-full px-2">
         ระบบติดตามและแจ้งเตือนระดับน้ำอัจฉริยะ • เทศบาลตำบลน้ำง้ำ ร่วมกับ บริษัท โทรคมนาคมแห่งชาติ จำกัด (มหาชน) NT
       </p>
     </footer>
