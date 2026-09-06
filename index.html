@@ -1311,7 +1311,7 @@
           adminAuthBtn.className = 'px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs sm:text-sm transition active:scale-95 flex items-center gap-1.5 shadow-xs shrink-0';
           adminAuthBtn.onclick = () => handleAdminLogout();
         }
-        if (adminPanel) adminPanel.classList.remove('hidden');
+        if (adminPanel) { adminPanel.classList.remove('hidden'); syncAdminInputsFromActiveStation(); }
       } else {
         if (adminBtnText) adminBtnText.innerText = 'Admin Login';
         if (adminAuthBtn) {
@@ -1384,6 +1384,67 @@
     }
 
     // Expose functions globally for onclick attributes
+    
+    function syncAdminInputsFromActiveStation() {
+      const st = activeStation || STATIONS_DATA[currentStationIndex];
+      if (!st) return;
+
+      const elName = document.getElementById('adminStationName');
+      const elShortName = document.getElementById('adminStationShortName');
+      const elRiver = document.getElementById('adminStationRiver');
+      const elDistrict = document.getElementById('adminStationDistrict');
+      const elBank = document.getElementById('adminStationBank');
+      const elLevel = document.getElementById('adminStationLevelNum');
+
+      if (elName) elName.value = st.name || '';
+      if (elShortName) elShortName.value = st.shortName || '';
+      if (elRiver) elRiver.value = st.river || '';
+      if (elDistrict) elDistrict.value = st.district || '';
+      if (elBank) elBank.value = st.bank || 5.0;
+      if (elLevel) elLevel.value = st.level || 0;
+    }
+
+    function updateStationMetaFromAdmin() {
+      const st = STATIONS_DATA[currentStationIndex];
+      if (!st) return;
+
+      const elName = document.getElementById('adminStationName');
+      const elShortName = document.getElementById('adminStationShortName');
+      const elRiver = document.getElementById('adminStationRiver');
+      const elDistrict = document.getElementById('adminStationDistrict');
+      const elBank = document.getElementById('adminStationBank');
+
+      if (elName) st.name = elName.value;
+      if (elShortName) st.shortName = elShortName.value;
+      if (elRiver) st.river = elRiver.value;
+      if (elDistrict) st.district = elDistrict.value;
+      if (elBank) st.bank = parseFloat(elBank.value) || st.bank;
+
+      activeStation = st;
+
+      // Update UI Header Title
+      const h1Title = document.querySelector('h1');
+      if (h1Title && st.name) h1Title.innerText = st.name;
+
+      const riverEl = document.querySelector('.text-slate-500.dark\:text-slate-400');
+      if (riverEl && st.river) riverEl.innerText = `${st.river} | ${st.district}`;
+
+      if (stationDropdown) renderStationItems();
+    }
+
+    function updateStationLevelFromAdmin(val) {
+      const num = parseFloat(val);
+      if (isNaN(num)) return;
+      const rangeEl = document.getElementById('waterLevelRange');
+      if (rangeEl) rangeEl.value = num;
+      updateWaterState(num);
+    }
+
+    // Expose helpers
+    window.syncAdminInputsFromActiveStation = syncAdminInputsFromActiveStation;
+    window.updateStationMetaFromAdmin = updateStationMetaFromAdmin;
+    window.updateStationLevelFromAdmin = updateStationLevelFromAdmin;
+
     window.toggleAdminAuthModal = toggleAdminAuthModal;
     window.handleAdminLogin = handleAdminLogin;
     window.handleAdminLogout = handleAdminLogout;
