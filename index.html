@@ -16,13 +16,13 @@
     // ⚙️ SUPABASE & ADMIN AUTHENTICATION
     // ==========================================
     // โปรดวาง SUPABASE_URL และ SUPABASE_ANON_KEY ที่ได้จาก Supabase ในนี้
-    const SUPABASE_URL = "YOUR_SUPABASE_URL_HERE"; 
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY_HERE";
+    const SUPABASE_URL = "https://epzjizrkvkcebdbjmafu.supabase.co"; 
+    const SUPABASE_ANON_KEY = "sb_publishable_J96Z-3cBskPIFG0hwPc7kA_HB2hxnoU";
 
     let supabaseClient = null;
     let isAdminLoggedIn = false;
 
-    if (typeof supabase !== 'undefined' && SUPABASE_URL !== "YOUR_SUPABASE_URL_HERE" && SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY_HERE") {
+    if (typeof supabase !== 'undefined' && SUPABASE_URL !== "https://epzjizrkvkcebdbjmafu.supabase.co" && SUPABASE_ANON_KEY !== "sb_publishable_J96Z-3cBskPIFG0hwPc7kA_HB2hxnoU") {
       try {
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         console.log("⚡ Supabase Initialized Successfully!");
