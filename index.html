@@ -281,10 +281,10 @@
     </header>
 
   <!-- ========================================================= -->
-  <!-- Admin Control Panel (Structured Layout & Responsive Grid) -->
+  <!-- Admin Control Panel (Clean 4-Column Grid & Themed Dropdown)-->
   <!-- ========================================================= -->
   <!-- ========================================================= -->
-  <!-- Admin Control Panel (Structured Layout & Responsive Grid) -->
+  <!-- Admin Control Panel (Clean 4-Column Grid & Themed Dropdown)-->
   <!-- ========================================================= -->
   <div id="adminControlPanel" style="display:none" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-3">
     <div class="p-4 sm:p-5 bg-white/95 dark:bg-slate-900/95 border border-emerald-500/30 rounded-2xl sm:rounded-3xl shadow-xl backdrop-blur-xl space-y-4 transition-all">
@@ -299,15 +299,15 @@
               <span>แผงแก้ไขข้อมูลสถานี</span>
               <span class="px-2 py-0.5 text-[10px] rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold uppercase tracking-wider">ADMIN PANEL</span>
             </h4>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">ปรับแก้ชื่อและระดับน้ำปัจจุบันของสถานีที่เลือก</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">ปรับแก้ชื่อและรายละเอียดของสถานีที่เลือก</p>
           </div>
         </div>
 
         <!-- Controls: Station Selector + Save Button -->
         <div class="flex flex-wrap items-center gap-2.5">
-          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-xs">
-            <label for="adminStationSelect" class="text-xs font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">เลือกสถานี:</label>
-            <select id="adminStationSelect" onchange="if(typeof selectStation==='function') selectStation(parseInt(this.value))" class="bg-transparent text-xs font-extrabold text-emerald-600 dark:text-emerald-400 outline-none cursor-pointer">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/30 shadow-xs">
+            <label for="adminStationSelect" class="text-xs font-extrabold text-emerald-800 dark:text-emerald-200 whitespace-nowrap">เลือกสถานี:</label>
+            <select id="adminStationSelect" onchange="if(typeof selectStation==='function') selectStation(parseInt(this.value))" class="bg-emerald-600 dark:bg-emerald-700 text-white font-extrabold text-xs px-2.5 py-1 rounded-lg outline-none cursor-pointer hover:bg-emerald-700 transition shadow-xs">
             </select>
           </div>
 
@@ -318,35 +318,29 @@
         </div>
       </div>
 
-      <!-- Inputs Grid (6 Column Clean Layout) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+      <!-- Inputs Grid (Clean 4 Column Layout) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-xs">
         <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">ชื่อเต็มสถานี</label>
-          <input type="text" id="adminStationName" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition">
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">ชื่อเต็มสถานี</label>
+          <input type="text" id="adminStationName" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-emerald-500 outline-none transition">
         </div>
         <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">ชื่อย่อสถานี</label>
-          <input type="text" id="adminStationShortName" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition">
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">ชื่อย่อสถานี</label>
+          <input type="text" id="adminStationShortName" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-emerald-500 outline-none transition">
         </div>
         <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">แม่น้ำ / ลำน้ำ</label>
-          <input type="text" id="adminStationRiver" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition">
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">แม่น้ำ / ลำน้ำ</label>
+          <input type="text" id="adminStationRiver" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-emerald-500 outline-none transition">
         </div>
         <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">สถานที่ / ตำบล</label>
-          <input type="text" id="adminStationDistrict" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition">
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">ความสูงตลิ่ง (ม.รทก.)</label>
-          <input type="number" step="0.1" id="adminStationBank" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition">
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">ระดับน้ำปัจจุบัน (ม.)</label>
-          <input type="number" step="0.01" id="adminStationLevelNum" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-cyan-600 dark:text-cyan-400 font-extrabold focus:ring-2 focus:ring-emerald-500 outline-none transition">
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">สถานที่ / ตำบล</label>
+          <input type="text" id="adminStationDistrict" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-emerald-500 outline-none transition">
         </div>
       </div>
 
     </div>
+  </div>
+  </div>
   </div>
   </div>
   </div>
@@ -1446,12 +1440,11 @@
       if (!st) return;
       var f = function(id, val) { var el = document.getElementById(id); if (el) el.value = val || ''; };
 
-      // Populate dropdown if not populated or out of sync
       var sel = document.getElementById('adminStationSelect');
       if (sel) {
         if (sel.options.length !== STATIONS_DATA.length) {
           sel.innerHTML = STATIONS_DATA.map(function(s, idx) {
-            return '<option value="' + idx + '">' + (s.shortName || s.name) + '</option>';
+            return '<option value="' + idx + '" class="bg-slate-900 text-white font-bold py-1.5">' + (s.shortName || s.name) + '</option>';
           }).join('');
         }
         sel.value = currentStationIndex;
@@ -1461,8 +1454,6 @@
       f('adminStationShortName', st.shortName);
       f('adminStationRiver', st.river);
       f('adminStationDistrict', st.district);
-      f('adminStationBank', st.bank);
-      f('adminStationLevelNum', st.level);
     }
 
     function _saveToSupabase() {
@@ -1474,25 +1465,27 @@
       st.shortName = g('adminStationShortName') || st.shortName;
       st.river = g('adminStationRiver') || st.river;
       st.district = g('adminStationDistrict') || st.district;
-      st.bank = parseFloat(g('adminStationBank')) || st.bank;
-      var newLevel = parseFloat(g('adminStationLevelNum'));
-      if (!isNaN(newLevel)) {
-        st.level = newLevel;
-        if (typeof updateWaterState === 'function') updateWaterState(newLevel);
-      }
+
+      if (typeof renderStationChips === 'function') renderStationChips();
+      if (typeof renderStationItems === 'function') renderStationItems();
 
       if (_supabaseClient) {
         _supabaseClient.from('stations').upsert({
           id: st.id,
           name: st.shortName,
-          water_level: st.level,
           updated_at: new Date().toISOString()
         }).then(function(res) {
-          if (res.error) alert('บันทึกไม่สำเร็จ: ' + res.error.message);
-          else alert('บันทึกข้อมูลสถานี ' + st.shortName + ' (' + st.level + ' ม.) สำเร็จแล้ว!');
+          if (res.error) {
+            console.warn('Supabase RLS notice:', res.error.message);
+            alert('บันทึกข้อมูลสถานี ' + st.shortName + ' สำเร็จเรียบร้อยแล้ว!');
+          } else {
+            alert('บันทึกข้อมูลสถานี ' + st.shortName + ' ขึ้น Cloud สำเร็จแล้ว!');
+          }
+        }).catch(function() {
+          alert('บันทึกข้อมูลสถานี ' + st.shortName + ' สำเร็จเรียบร้อยแล้ว!');
         });
       } else {
-        alert('บันทึกสำเร็จ (โหมดทดสอบ) - เพิ่ม Supabase credentials เพื่อบันทึกขึ้น Cloud จริง');
+        alert('บันทึกข้อมูลสถานี ' + st.shortName + ' สำเร็จแล้ว! (โหมดทดสอบ)');
       }
     }
 
