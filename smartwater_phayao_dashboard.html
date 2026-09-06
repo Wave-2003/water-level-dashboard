@@ -754,6 +754,29 @@
         forecastNote: 'เตือนภัยคาดการณ์ 21:00 น.'
       }
     ];
+    function _loadSavedStationData() {
+      try {
+        var saved = localStorage.getItem('smartwater_phayao_saved_stations');
+        if (saved && typeof STATIONS_DATA !== 'undefined') {
+          var parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            parsed.forEach(function(sItem) {
+              if (!sItem || !sItem.id) return;
+              var target = STATIONS_DATA.find(function(x) { return x.id === sItem.id; });
+              if (target) {
+                if (sItem.name) target.name = sItem.name;
+                if (sItem.shortName) target.shortName = sItem.shortName;
+                if (sItem.river) target.river = sItem.river;
+                if (sItem.district) target.district = sItem.district;
+              }
+            });
+          }
+        }
+      } catch(e) {
+        console.warn('Load saved station data notice:', e);
+      }
+    }
+    _loadSavedStationData();
 
     let currentStationIndex = 0;
     let activeStation = STATIONS_DATA[currentStationIndex];
@@ -1300,6 +1323,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      _loadSavedStationData();
       initStationControls();
       selectStation(0);
       startLivePolling();
@@ -1453,6 +1477,21 @@
       st.shortName = g('adminStationShortName') || st.shortName;
       st.river = g('adminStationRiver') || st.river;
       st.district = g('adminStationDistrict') || st.district;
+
+      try {
+        var customData = STATIONS_DATA.map(function(s) {
+          return {
+            id: s.id,
+            name: s.name,
+            shortName: s.shortName,
+            river: s.river,
+            district: s.district
+          };
+        });
+        localStorage.setItem('smartwater_phayao_saved_stations', JSON.stringify(customData));
+      } catch(e) {
+        console.warn('LocalStorage save notice:', e);
+      }
 
       if (typeof window.selectStation === 'function') window.selectStation(currentStationIndex);
       if (typeof _syncAdminInputs === 'function') _syncAdminInputs();
