@@ -1350,21 +1350,76 @@
       _setAdminState(false);
     }
 
+    function toggleAdminStationDropdown(show) {
+      var menu = document.getElementById('adminStationDropdownMenu');
+      var arrow = document.getElementById('adminStationDropdownArrow');
+      if (!menu) return;
+      if (show === undefined) {
+        show = (menu.style.display === 'none');
+      }
+      if (show) {
+        renderAdminStationDropdown();
+        menu.style.display = 'block';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+      } else {
+        menu.style.display = 'none';
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function renderAdminStationDropdown() {
+      var menu = document.getElementById('adminStationDropdownMenu');
+      var btnText = document.getElementById('adminStationDropdownText');
+      if (typeof STATIONS_DATA === 'undefined' || typeof currentStationIndex === 'undefined') return;
+
+      var current = STATIONS_DATA[currentStationIndex] || STATIONS_DATA[0];
+      if (btnText && current) {
+        btnText.innerText = current.shortName || current.name;
+      }
+
+      if (menu) {
+        menu.innerHTML = STATIONS_DATA.map(function(st, idx) {
+          var isSelected = (idx === currentStationIndex);
+          var bgClass = isSelected 
+            ? 'bg-emerald-600 text-white font-bold shadow-md' 
+            : 'text-slate-700 dark:text-slate-200 hover:bg-emerald-500/10 dark:hover:bg-emerald-950/50 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold';
+          
+          return '<button type="button" onclick="selectAdminStation(' + idx + ')" class="w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-all ' + bgClass + '">' +
+                   '<span class="flex items-center gap-2 truncate">' +
+                     '<span class="w-2 h-2 rounded-full ' + (isSelected ? 'bg-white' : 'bg-emerald-500') + ' shrink-0"></span>' +
+                     '<span class="truncate">' + (st.shortName || st.name) + '</span>' +
+                   '</span>' +
+                   (isSelected ? '<svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : '') +
+                 '</button>';
+        }).join('');
+      }
+    }
+
+    function selectAdminStation(index) {
+      if (typeof window.selectStation === 'function') {
+        window.selectStation(index);
+      }
+      _syncAdminInputs();
+      toggleAdminStationDropdown(false);
+    }
+
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('adminStationDropdownMenu');
+      var btn = document.getElementById('adminStationDropdownBtn');
+      if (menu && btn && menu.style.display !== 'none') {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          toggleAdminStationDropdown(false);
+        }
+      }
+    });
+
     function _syncAdminInputs() {
       if (typeof STATIONS_DATA === 'undefined' || typeof currentStationIndex === 'undefined') return;
       var st = STATIONS_DATA[currentStationIndex];
       if (!st) return;
       var f = function(id, val) { var el = document.getElementById(id); if (el) el.value = val || ''; };
 
-      var sel = document.getElementById('adminStationSelect');
-      if (sel) {
-        if (sel.options.length !== STATIONS_DATA.length) {
-          sel.innerHTML = STATIONS_DATA.map(function(s, idx) {
-            return '<option value="' + idx + '" class="bg-slate-900 text-white font-bold py-1.5">' + (s.shortName || s.name) + '</option>';
-          }).join('');
-        }
-        sel.value = currentStationIndex;
-      }
+      renderAdminStationDropdown();
 
       f('adminStationName', st.name);
       f('adminStationShortName', st.shortName);
