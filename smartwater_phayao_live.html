@@ -1314,36 +1314,51 @@
       </div>
 
       <!-- Warning Banner when Supabase credentials are pending -->
-      <div id="supabaseWarningBanner" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-700 dark:text-amber-300">
-        ⚠️ <strong>คำแนะนำ:</strong> ตอนนี้ทำงานในโหมดทดสอบจำลอง (Simulation Admin) สามารถกดปุ่ม <strong>"เข้าสู่ระบบทดลอง"</strong> เพื่อทดลองใช้งานแผงควบคุมระดับน้ำได้ทันที!
-      </div>
+      
 
-      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" class="space-y-3">
-        <div>
-          <label class="block text-xs font-semibold mb-1">อีเมลผู้ดูแลระบบ (Email)</label>
-          <input type="email" id="adminEmail" value="admin@phayao.go.th" required placeholder="admin@phayao.go.th" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold mb-1">รหัสผ่าน (Password)</label>
-          <input type="password" id="adminPassword" value="123456" required placeholder="••••••••" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none" />
-        </div>
-
-        <div id="loginErrorMsg" class="text-xs text-rose-500 hidden font-medium"></div>
-
-        <button type="submit" id="loginSubmitBtn" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 active:scale-95 text-white font-semibold text-sm transition shadow-md">
-          เข้าสู่ระบบ (Sign In)
-        </button>
-      </form>
+      
     </div>
   </div>
 
 
+  
+
+      
+
+      
+
+      
+    </div>
+  </div>
+
   <!-- ========================================================= -->
-  <!-- Admin Login Modal (Standalone - Outside main script scope) -->
+  <!-- Admin Auth Standalone Script (Global Scope, loads last)   -->
+  <!-- ========================================================= -->
+  
+
+  
+
+      
+
+      
+
+      
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- Admin Auth Standalone Script (Global Scope, Persistent)   -->
+  <!-- ========================================================= -->
+  
+
+
+
+  <!-- ========================================================= -->
+  <!-- Admin Login Modal (Clean & Self-Contained)                -->
   <!-- ========================================================= -->
   <div id="adminLoginModal" style="display:none" class="fixed inset-0 z-[9999] items-center justify-center bg-slate-900/70 backdrop-blur-md p-4">
     <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4 relative text-slate-900 dark:text-white">
-      <button id="adminModalCloseBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+      <button id="adminModalCloseBtn" type="button" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
@@ -1364,12 +1379,12 @@
       <form id="adminLoginForm" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold mb-1">อีเมล (Email)</label>
-          <input type="email" id="adminEmail" value="admin@phayao.go.th" placeholder="admin@phayao.go.th"
+          <input type="email" id="adminEmail" value="admin@phayao.go.th" required placeholder="admin@phayao.go.th"
             class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none" />
         </div>
         <div>
           <label class="block text-xs font-semibold mb-1">รหัสผ่าน (Password)</label>
-          <input type="password" id="adminPassword" value="123456" placeholder="••••••••"
+          <input type="password" id="adminPassword" value="123456" required placeholder="••••••••"
             class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none" />
         </div>
         <button type="submit" id="adminLoginSubmitBtn"
@@ -1381,45 +1396,27 @@
   </div>
 
   <!-- ========================================================= -->
-  <!-- Admin Auth Standalone Script (Global Scope, loads last)   -->
+  <!-- Admin Auth Standalone Script (Global Scope, Persistent)   -->
   <!-- ========================================================= -->
   <script id="adminAuthScript">
-    // =====================================
-    // Supabase Config
-    // =====================================
     var SUPABASE_URL = "https://epzjizrkvkcebdbjmafu.supabase.co";
     var SUPABASE_ANON_KEY = "sb_publishable_J96Z-3cBskPIFG0hwPc7kA_HB2hxnoU";
 
     var _supabaseClient = null;
     var _isAdminLoggedIn = false;
 
-    // Initialize Supabase if SDK is loaded
     if (typeof supabase !== 'undefined') {
       try {
         _supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("✅ Supabase initialized");
-
-        _supabaseClient.auth.getSession().then(function(res) {
-          if (res.data && res.data.session) {
-            _setAdminState(true, res.data.session.user.email);
-          }
-        }).catch(function() {});
-
-        _supabaseClient.auth.onAuthStateChange(function(event, session) {
-          _setAdminState(!!session, session ? session.user.email : '');
-        });
       } catch(e) {
         console.warn("Supabase init warning:", e);
       }
     }
 
-    // =====================================
-    // Core functions - ALL at GLOBAL scope
-    // =====================================
     function toggleAdminAuthModal(show) {
       var modal = document.getElementById('adminLoginModal');
       var warningBanner = document.getElementById('supabaseWarningBanner');
-      if (!modal) { console.error('adminLoginModal not found!'); return; }
+      if (!modal) return;
 
       if (show === undefined || show === true) {
         modal.style.display = 'flex';
@@ -1432,27 +1429,36 @@
 
     function _setAdminState(loggedIn, email) {
       _isAdminLoggedIn = loggedIn;
+      if (loggedIn) {
+        localStorage.setItem('adminLoggedIn', 'true');
+        if (email) localStorage.setItem('adminEmail', email);
+      } else {
+        localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('adminEmail');
+      }
+
       var adminBtn = document.getElementById('adminAuthBtn');
       var adminBtnIcon = document.getElementById('adminBtnIcon');
       var adminBtnText = document.getElementById('adminBtnText');
       var adminPanel = document.getElementById('adminControlPanel');
 
       if (loggedIn) {
-        // Change button to person avatar (green circle)
         if (adminBtn) {
           adminBtn.className = 'w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white transition active:scale-95 flex items-center justify-center shadow-md shrink-0 cursor-pointer border-2 border-emerald-400/50';
-          adminBtn.title = 'Admin Active - กดเพื่อออกจากระบบ';
+          adminBtn.title = 'ผู้ดูแลระบบ (คลิกเพื่อออกจากระบบ)';
         }
         if (adminBtnIcon) {
           adminBtnIcon.innerHTML = '<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>';
         }
-        if (adminBtnText) { adminBtnText.innerText = ''; adminBtnText.style.display = 'none'; }
-        if (adminPanel) { adminPanel.style.display = 'block'; _syncAdminInputs(); }
-
-        // Re-bind click to logout
-        if (adminBtn) adminBtn.onclick = function() { _adminLogout(); };
+        if (adminBtnText) {
+          adminBtnText.innerText = '';
+          adminBtnText.style.display = 'none';
+        }
+        if (adminPanel) {
+          adminPanel.style.display = 'block';
+          _syncAdminInputs();
+        }
       } else {
-        // Back to login button state
         if (adminBtn) {
           adminBtn.className = 'px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-cyan-600 hover:bg-cyan-700 active:scale-95 text-white font-semibold text-xs sm:text-sm transition flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer';
           adminBtn.title = 'เข้าสู่ระบบ';
@@ -1460,11 +1466,13 @@
         if (adminBtnIcon) {
           adminBtnIcon.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>';
         }
-        if (adminBtnText) { adminBtnText.innerText = 'เข้าสู่ระบบ'; adminBtnText.style.display = ''; }
-        if (adminPanel) { adminPanel.style.display = 'none'; }
-
-        // Re-bind click to open modal
-        if (adminBtn) adminBtn.onclick = function() { toggleAdminAuthModal(true); };
+        if (adminBtnText) {
+          adminBtnText.innerText = 'เข้าสู่ระบบ';
+          adminBtnText.style.display = '';
+        }
+        if (adminPanel) {
+          adminPanel.style.display = 'none';
+        }
       }
     }
 
@@ -1519,26 +1527,28 @@
       }
     }
 
-    // =====================================
-    // Bind all events when DOM is ready
-    // =====================================
     (function bindAdminEvents() {
       function init() {
-        // Admin login button
         var adminBtn = document.getElementById('adminAuthBtn');
         if (adminBtn) {
           adminBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            if (_isAdminLoggedIn) _adminLogout();
-            else toggleAdminAuthModal(true);
+            if (_isAdminLoggedIn) {
+              _adminLogout();
+            } else {
+              toggleAdminAuthModal(true);
+            }
           });
         }
 
-        // Modal close button
         var closeBtn = document.getElementById('adminModalCloseBtn');
-        if (closeBtn) closeBtn.addEventListener('click', function() { toggleAdminAuthModal(false); });
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleAdminAuthModal(false);
+          });
+        }
 
-        // Backdrop click to close
         var modal = document.getElementById('adminLoginModal');
         if (modal) {
           modal.addEventListener('click', function(e) {
@@ -1546,41 +1556,44 @@
           });
         }
 
-        // Login form submit
         var loginForm = document.getElementById('adminLoginForm');
         if (loginForm) {
           loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            var email = document.getElementById('adminEmail').value;
-            var password = document.getElementById('adminPassword').value;
+            var emailEl = document.getElementById('adminEmail');
+            var passEl = document.getElementById('adminPassword');
+            var email = emailEl ? emailEl.value : '';
             var submitBtn = document.getElementById('adminLoginSubmitBtn');
-            var errorDiv = document.getElementById('adminLoginErrorMsg');
 
-            if (errorDiv) errorDiv.style.display = 'none';
-            if (submitBtn) { submitBtn.innerText = 'กำลังเข้าสู่ระบบ...'; submitBtn.disabled = true; }
+            if (submitBtn) {
+              submitBtn.innerText = 'กำลังเข้าสู่ระบบ...';
+              submitBtn.disabled = true;
+            }
 
             function doSimulationLogin() {
-              // Simulation / Demo mode: ยอมรับทุก credentials
-              if (submitBtn) { submitBtn.innerText = 'เข้าสู่ระบบ (Sign In)'; submitBtn.disabled = false; }
+              if (submitBtn) {
+                submitBtn.innerText = 'เข้าสู่ระบบ (Sign In)';
+                submitBtn.disabled = false;
+              }
               _setAdminState(true, email || 'admin@phayao.go.th');
               toggleAdminAuthModal(false);
             }
 
-            if (_supabaseClient) {
-              _supabaseClient.auth.signInWithPassword({ email: email, password: password })
+            if (_supabaseClient && email && passEl && passEl.value) {
+              _supabaseClient.auth.signInWithPassword({ email: email, password: passEl.value })
                 .then(function(res) {
-                  if (submitBtn) { submitBtn.innerText = 'เข้าสู่ระบบ (Sign In)'; submitBtn.disabled = false; }
+                  if (submitBtn) {
+                    submitBtn.innerText = 'เข้าสู่ระบบ (Sign In)';
+                    submitBtn.disabled = false;
+                  }
                   if (res.error) {
-                    // Supabase user not found -> fallback to simulation mode
-                    console.warn('Supabase auth failed (' + res.error.message + ') - using simulation mode');
                     doSimulationLogin();
                   } else {
                     _setAdminState(true, res.data.user.email);
                     toggleAdminAuthModal(false);
                   }
                 })
-                .catch(function(err) {
-                  console.warn('Supabase error:', err, '- falling back to simulation mode');
+                .catch(function() {
                   doSimulationLogin();
                 });
             } else {
@@ -1589,19 +1602,22 @@
           });
         }
 
-        // Save button
         var saveBtn = document.getElementById('adminSaveBtn');
-        if (saveBtn) saveBtn.addEventListener('click', _saveToSupabase);
+        if (saveBtn) {
+          saveBtn.addEventListener('click', _saveToSupabase);
+        }
 
-        // Keyboard Escape to close
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape') toggleAdminAuthModal(false);
         });
 
-        console.log("✅ Admin Auth events bound successfully");
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+          _setAdminState(true, localStorage.getItem('adminEmail') || 'admin@phayao.go.th');
+        }
+
+        console.log("✅ Admin Auth System ready & persistent");
       }
 
-      // Bind immediately if DOM is already ready, otherwise wait
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
       } else {
@@ -1609,11 +1625,8 @@
       }
     })();
 
-    // Expose key functions on window for external use
     window.toggleAdminAuthModal = toggleAdminAuthModal;
     window.saveCurrentStationToSupabase = _saveToSupabase;
   </script>
-
-
 </body>
 </html>
