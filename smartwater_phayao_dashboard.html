@@ -204,30 +204,6 @@
               <span>ออกจากระบบ</span>
             </button>
           </div>
-<!-- Logout Button (LoggedIn State) -->
-            <button id="adminLogoutBtn" style="display:none" onclick="if(typeof _adminLogout==='function') _adminLogout()" title="ออกจากระบบผู้ดูแลระบบ" class="px-2.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-500/10 hover:bg-rose-500/20 active:scale-95 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold text-xs transition flex items-center gap-1 shrink-0 cursor-pointer">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-              <span>ออกจากระบบ</span>
-            </button>
-          </div>
-<!-- Logout Button (LoggedIn State) -->
-            <button id="adminLogoutBtn" style="display:none" onclick="if(typeof _adminLogout==='function') _adminLogout()" title="ออกจากระบบผู้ดูแลระบบ" class="px-2.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-500/10 hover:bg-rose-500/20 active:scale-95 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold text-xs transition flex items-center gap-1 shrink-0 cursor-pointer">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-              <span>ออกจากระบบ</span>
-            </button>
-          </div>
-<!-- Logout Button (LoggedIn State) -->
-            <button id="adminLogoutBtn" style="display:none" onclick="if(typeof _adminLogout==='function') _adminLogout()" title="ออกจากระบบผู้ดูแลระบบ" class="px-2.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-500/10 hover:bg-rose-500/20 active:scale-95 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold text-xs transition flex items-center gap-1 shrink-0 cursor-pointer">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-              <span>ออกจากระบบ</span>
-            </button>
-          </div>
-<!-- Logout Button (LoggedIn State) -->
-            <button id="adminLogoutBtn" style="display:none" onclick="if(typeof _adminLogout==='function') _adminLogout()" title="ออกจากระบบผู้ดูแลระบบ" class="px-2.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-500/10 hover:bg-rose-500/20 active:scale-95 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold text-xs transition flex items-center gap-1 shrink-0 cursor-pointer">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-              <span>ออกจากระบบ</span>
-            </button>
-          </div>
 
           <button id="themeToggle" aria-label="สลับโหมดมืด/สว่าง" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition active:scale-95 flex items-center justify-center shadow-xs shrink-0">
             <svg class="w-3.5 h-3.5 hidden dark:block text-amber-400" fill="currentColor" viewBox="0 0 20 20">
@@ -1478,8 +1454,8 @@
       st.river = g('adminStationRiver') || st.river;
       st.district = g('adminStationDistrict') || st.district;
 
-      if (typeof renderStationChips === 'function') renderStationChips();
-      if (typeof renderStationItems === 'function') renderStationItems();
+      if (typeof window.selectStation === 'function') window.selectStation(currentStationIndex);
+      if (typeof _syncAdminInputs === 'function') _syncAdminInputs();
 
       if (_supabaseClient) {
         _supabaseClient.from('stations').upsert({
