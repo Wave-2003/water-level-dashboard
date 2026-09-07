@@ -101,28 +101,39 @@
     <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-amber-400/15 rounded-full blur-3xl"></div>
   </div>
 
-  <!-- FLOATING LIVE THEME SWITCHER BAR -->
+  <!-- FLOATING LIVE THEME & MODE SWITCHER BAR -->
   <div class="sticky top-2 z-50 w-full max-w-6xl mx-auto px-3 mb-2">
-    <div class="glass-card rounded-full p-2 px-3 sm:px-4 shadow-lg border border-teal-500/20 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
-      <div class="flex items-center gap-2 shrink-0">
-        <span class="w-2.5 h-2.5 rounded-full bg-teal-500 animate-pulse"></span>
-        <span class="text-xs font-bold tracking-wide no-wrap opacity-90">เลือกสไตล์ธีมสบายตา:</span>
+    <div class="glass-card rounded-2xl p-2 px-3 sm:px-4 shadow-lg border border-teal-500/20 flex flex-wrap items-center justify-between gap-2">
+      
+      <!-- Left: Mode Switcher Buttons (Live System vs Demo System) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <span class="text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+          เลือกโหมดระบบ:
+        </span>
+        <a href="index.html" class="px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-emerald-600 hover:text-white no-wrap">
+          <span>🟢</span> <span>ระบบจริง (Live + ล็อกอิน)</span>
+        </a>
+        <a href="smartwater_phayao_demo_theme.html" class="px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/30 no-wrap">
+          <span>🎮</span> <span>ระบบจำลอง (Demo + ทดสอบปรับค่า)</span>
+        </a>
       </div>
 
+      <!-- Right: Theme Selector Buttons -->
       <div class="flex items-center gap-1.5 sm:gap-2">
-        <button onclick="setThemeStyle('theme-sage')" id="btn-theme-sage" class="px-3 py-1 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/30">
-          <span>🌿</span> <span class="no-wrap">นอร์ดิก เซจ (ธรรมชาติ)</span>
+        <button onclick="setThemeStyle('theme-sage')" id="btn-theme-sage" class="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold transition-all flex items-center gap-1 bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/30">
+          <span>🌿</span> <span class="no-wrap">นอร์ดิก เซจ</span>
         </button>
-        <button onclick="setThemeStyle('theme-sand')" id="btn-theme-sand" class="px-3 py-1 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-amber-100">
-          <span>🌅</span> <span class="no-wrap">วอร์ม แซนด์ (โทนอุ่น)</span>
+        <button onclick="setThemeStyle('theme-sand')" id="btn-theme-sand" class="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold transition-all flex items-center gap-1 bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-amber-100 dark:hover:bg-amber-900/40">
+          <span>🌅</span> <span class="no-wrap">วอร์ม แซนด์</span>
         </button>
-        <button onclick="setThemeStyle('theme-midnight')" id="btn-theme-midnight" class="px-3 py-1 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300">
-          <span>🌙</span> <span class="no-wrap">เวลเวท มิดไนท์ (กลางคืน)</span>
+        <button onclick="setThemeStyle('theme-midnight')" id="btn-theme-midnight" class="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold transition-all flex items-center gap-1 bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+          <span>🌙</span> <span class="no-wrap">มิดไนท์</span>
         </button>
 
-        <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1"></div>
+        <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-0.5"></div>
 
-        <button onclick="toggleDarkMode()" id="darkModeToggle" class="p-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all text-xs flex items-center gap-1 px-2.5 font-medium">
+        <button onclick="toggleDarkMode()" id="darkModeToggle" class="p-1 rounded-full bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all text-xs flex items-center gap-1 px-2 font-medium">
           <span id="darkModeIcon">🌙</span>
           <span id="darkModeText" class="hidden sm:inline text-[11px] font-semibold">มืด</span>
         </button>
@@ -200,8 +211,15 @@
         </div>
       </div>
 
+      <!-- Quick Station Tab Buttons -->
       <div class="flex items-center gap-2 pt-3 overflow-x-auto no-scrollbar">
-        <span class="text-xs font-semibold text-slate-400 shrink-0 mr-1">สถานีตรวจวัด:</span>
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0 flex items-center gap-1 mr-1">
+          <svg class="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+          เลือกสถานีตรวจวัด:
+        </span>
         <button onclick="switchStation(0)" id="st-tab-0" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/20">
           สะพานลำน้ำง้ำ (หลัก)
         </button>
