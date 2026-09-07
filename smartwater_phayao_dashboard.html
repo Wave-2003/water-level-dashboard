@@ -390,7 +390,47 @@
             <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium">มาตรฐาน ชป.</span>
           </div>
 
-          <div class="grid grid-cols-3 gap-2" id="levelMatrixContainer"></div>
+          <div class="grid grid-cols-3 gap-2" id="levelMatrixContainer">
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between shadow-md scale-[1.02] z-10 bg-emerald-500/20 border-emerald-500">
+              <div class="flex items-center gap-1 mb-1">
+                <span class="relative flex h-2.5 w-2.5 shrink-0"><span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-500"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
+                <span class="text-[11px] sm:text-xs font-black truncate text-emerald-600 dark:text-emerald-400">ปกติ</span>
+              </div>
+              <span class="text-[9px] sm:text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400">0.00 - 1.14 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-green-500"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">เริ่มติดตาม</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">1.14 - 2.28 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-yellow-500"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">เฝ้าระวัง</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">2.28 - 2.85 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-amber-500"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">เตรียมพร้อม</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">2.85 - 3.42 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-orange-500"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">เตือนภัย</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">3.42 - 3.99 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-orange-600"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">เตือนภัยสูง</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">3.99 - 4.56 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-red-500"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">วิกฤต</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">4.56 - 5.13 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-red-700"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">วิกฤตสูง</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">5.13 - 5.44 ม.</span>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border transition-all duration-200 flex flex-col justify-between bg-white/70 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 opacity-65 hover:opacity-100">
+              <div class="flex items-center gap-1 mb-1"><span class="w-2 h-2 rounded-full shrink-0 bg-rose-900"></span><span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">น้ำล้นตลิ่ง</span></div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-slate-400 dark:text-slate-500">5.44 - 5.70 ม.</span>
+            </div>
+          </div>
         </section>
 
       </div>
