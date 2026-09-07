@@ -102,8 +102,8 @@
   </div>
 
   <!-- FLOATING LIVE THEME & MODE SWITCHER BAR -->
-  <div class="sticky top-2 z-50 w-full max-w-6xl mx-auto px-3 mb-2">
-    <div class="glass-card rounded-2xl p-2 px-3 sm:px-4 shadow-lg border border-teal-500/20 flex flex-wrap items-center justify-between gap-2">
+  <div class="sticky top-0 z-50 w-full bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 py-1.5 px-3 mb-3 shadow-xs">
+    <div class="w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
       
       <!-- Left: Mode Switcher Buttons (Live System vs Demo System) -->
       <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
@@ -440,10 +440,10 @@
 
             <div class="relative w-full h-20 my-1">
               <svg viewBox="0 0 400 80" class="w-full h-full overflow-visible" preserveAspectRatio="none">
-                <path d="M 0,28 Q 60,20 120,32 T 240,48 T 340,62 L 400,68 L 400,80 L 0,80 Z" fill="#14b8a622" />
-                <path d="M 0,28 Q 60,20 120,32 T 240,48 T 340,62 L 400,68" fill="none" stroke="#14b8a6" stroke-width="3" />
-                <circle cx="0" cy="28" r="4" fill="#14b8a6" />
-                <circle cx="400" cy="68" r="4.5" fill="#0d9488" class="animate-pulse" />
+                <path id="trendAreaPath" d="M 0,28 Q 60,20 120,32 T 240,48 T 340,62 L 400,68 L 400,80 L 0,80 Z" fill="#14b8a622" />
+                <path id="trendStrokePath" d="M 0,28 Q 60,20 120,32 T 240,48 T 340,62 L 400,68" fill="none" stroke="#14b8a6" stroke-width="3" />
+                <circle id="trendStartCircle" cx="0" cy="28" r="4" fill="#14b8a6" />
+                <circle id="trendEndCircle" cx="400" cy="68" r="4.5" fill="#0d9488" class="animate-pulse" />
               </svg>
             </div>
 
@@ -570,14 +570,61 @@
 
     function updateWaterVisualizer(val, bank) {
       const currentVal = parseFloat(val);
-      const b = bank || STATIONS[currentStationIndex].bank;
-      const pct = Math.min(Math.max((currentVal / b) * 100, 10), 98);
+      const st = (typeof STATIONS !== 'undefined' && STATIONS[currentStationIndex]) ? STATIONS[currentStationIndex] : { bank: 5.70, trendText: 'ลดลง 0.26 ม.' };
+      const b = parseFloat(bank) || st.bank || 5.70;
+      
+      let waterPct;
+      if (currentVal <= b) {
+        waterPct = Math.max((currentVal / b) * 72, 8);
+      } else {
+        const overflowRatio = (currentVal - b) / b;
+        waterPct = 72 + Math.min(overflowRatio * 35, 6);
+      }
       
       const waterContainer = document.getElementById('waterContainer');
-      if (waterContainer) waterContainer.style.height = pct + '%';
+      if (waterContainer) waterContainer.style.height = waterPct.toFixed(2) + '%';
 
       const canalWaterTag = document.getElementById('canalWaterTag');
       if (canalWaterTag) canalWaterTag.innerText = currentVal.toFixed(2) + ' ม.รทก.';
+
+      // Sync 24h AI Trend Forecast with Slider
+      const forecastCurrentDisplay = document.getElementById('forecastCurrentDisplay');
+      if (forecastCurrentDisplay) forecastCurrentDisplay.innerText = currentVal.toFixed(2) + ' ม.';
+
+      let trendDiff = -0.26;
+      if (st.trendText) {
+        const match = st.trendText.match(/([-+]?\d+\.?\d*)/);
+        if (match) {
+          trendDiff = parseFloat(match[1]);
+          if (st.trendText.includes('ลดลง')) trendDiff = -Math.abs(trendDiff);
+          else if (st.trendText.includes('เพิ่มขึ้น')) trendDiff = Math.abs(trendDiff);
+        }
+      }
+
+      const targetVal = Math.max(0, currentVal + trendDiff);
+      const forecastTargetDisplay = document.getElementById('forecastTargetDisplay');
+      if (forecastTargetDisplay) {
+        const sign = trendDiff >= 0 ? '+' : '';
+        forecastTargetDisplay.innerText = targetVal.toFixed(2) + ' ม. (' + sign + trendDiff.toFixed(2) + ')';
+        forecastTargetDisplay.className = trendDiff <= 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-rose-600 dark:text-rose-400 font-bold';
+      }
+
+      // Dynamically animate trend curve SVG
+      const yStart = Math.min(Math.max(70 - (currentVal / b) * 50, 8), 68);
+      const yEnd = Math.min(Math.max(70 - (targetVal / b) * 50, 8), 68);
+      const yMid = (yStart + yEnd) / 2;
+
+      const trendStrokePath = document.getElementById('trendStrokePath');
+      if (trendStrokePath) trendStrokePath.setAttribute('d', `M 0,${yStart.toFixed(1)} Q 100,${(yStart - 5).toFixed(1)} 200,${yMid.toFixed(1)} T 400,${yEnd.toFixed(1)}`);
+
+      const trendAreaPath = document.getElementById('trendAreaPath');
+      if (trendAreaPath) trendAreaPath.setAttribute('d', `M 0,${yStart.toFixed(1)} Q 100,${(yStart - 5).toFixed(1)} 200,${yMid.toFixed(1)} T 400,${yEnd.toFixed(1)} L 400,80 L 0,80 Z`);
+
+      const trendStartCircle = document.getElementById('trendStartCircle');
+      if (trendStartCircle) trendStartCircle.setAttribute('cy', yStart.toFixed(1));
+
+      const trendEndCircle = document.getElementById('trendEndCircle');
+      if (trendEndCircle) trendEndCircle.setAttribute('cy', yEnd.toFixed(1));
 
       const info = getLevelInfo(currentVal, b);
       
@@ -882,6 +929,10 @@
 
         if (localStorage.getItem('adminLoggedIn') === 'true') {
           _setAdminState(true, localStorage.getItem('adminEmail') || 'admin@phayao.go.th');
+        }
+
+        if (typeof switchStation === 'function') {
+          switchStation(0);
         }
 
         console.log("✅ Admin Auth System ready & persistent");
