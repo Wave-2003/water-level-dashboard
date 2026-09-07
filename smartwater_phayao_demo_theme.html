@@ -211,30 +211,42 @@
         </div>
       </div>
 
-      <!-- Quick Station Tab Buttons -->
-      <div class="flex items-center gap-2 pt-3 overflow-x-auto no-scrollbar">
-        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0 flex items-center gap-1 mr-1">
-          <svg class="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          เลือกสถานีตรวจวัด:
-        </span>
-        <button onclick="switchStation(0)" id="st-tab-0" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/20">
-          สะพานลำน้ำง้ำ (หลัก)
-        </button>
-        <button onclick="switchStation(1)" id="st-tab-1" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          ฝายผาน้ำง้ำ
-        </button>
-        <button onclick="switchStation(2)" id="st-tab-2" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          สะพานบ้านดอนชัย
-        </button>
-        <button onclick="switchStation(3)" id="st-tab-3" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          สะพานพงษ์สนุก
-        </button>
-        <button onclick="switchStation(4)" id="st-tab-4" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          จุดสบยม (อ.ปง)
-        </button>
+      <!-- Quick Station Tab & Dropdown Selection Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200/60 dark:border-slate-800 mt-2">
+        <div class="flex items-center gap-2">
+          <label for="mainStationSelect" class="text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            <span>เลือกสถานีตรวจวัด:</span>
+          </label>
+          <select id="mainStationSelect" onchange="switchStation(parseInt(this.value))" class="bg-teal-600 dark:bg-teal-700 text-white font-bold text-xs px-3 py-1.5 rounded-xl border-none outline-none cursor-pointer hover:bg-teal-700 transition shadow-sm">
+            <option value="0">📍 สะพานลำน้ำง้ำ (หลัก)</option>
+            <option value="1">📍 ฝายผาน้ำง้ำ</option>
+            <option value="2">📍 สะพานบ้านดอนชัย</option>
+            <option value="3">📍 สะพานพงษ์สนุก</option>
+            <option value="4">📍 จุดสบยม (อ.ปง)</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          <button onclick="switchStation(0)" id="st-tab-0" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/20 whitespace-nowrap">
+            สะพานลำน้ำง้ำ (หลัก)
+          </button>
+          <button onclick="switchStation(1)" id="st-tab-1" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            ฝายผาน้ำง้ำ
+          </button>
+          <button onclick="switchStation(2)" id="st-tab-2" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            สะพานบ้านดอนชัย
+          </button>
+          <button onclick="switchStation(3)" id="st-tab-3" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            สะพานพงษ์สนุก
+          </button>
+          <button onclick="switchStation(4)" id="st-tab-4" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            จุดสบยม (อ.ปง)
+          </button>
+        </div>
       </div>
     </header>
 
@@ -367,14 +379,14 @@
                 ค่าจริง (2.17 ม.)
               </button>
             </div>
-            <input id="levelSlider" type="range" min="0.00" max="5.70" step="0.05" value="2.17" oninput="onSliderChange(this.value)" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer outline-none">
+            <input id="levelSlider" type="range" min="0.00" max="6.50" step="0.05" value="2.17" oninput="onSliderChange(this.value)" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer outline-none">
             
             <div class="grid grid-cols-5 gap-1.5 mt-3">
               <button onclick="setSimulatedLevel(0.85)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-emerald-100 text-emerald-700 text-center">ปกติ</button>
               <button onclick="setSimulatedLevel(2.17)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-teal-100 text-teal-700 text-center">สมดุล</button>
               <button onclick="setSimulatedLevel(3.20)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-amber-100 text-amber-700 text-center">เฝ้าระวัง</button>
               <button onclick="setSimulatedLevel(4.20)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-orange-100 text-orange-700 text-center">เตือนภัย</button>
-              <button onclick="setSimulatedLevel(5.55)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-rose-100 text-rose-700 text-center">วิกฤต</button>
+              <button onclick="setSimulatedLevel(5.85)" class="py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold bg-rose-500 text-white text-center font-bold shadow-sm">ล้นตลิ่ง (5.85ม.)</button>
             </div>
           </div>
 
@@ -481,16 +493,27 @@
       currentStationIndex = idx;
       const data = STATIONS[idx];
 
+      const mainStationSelect = document.getElementById('mainStationSelect');
+      if (mainStationSelect) mainStationSelect.value = idx;
+
+      const adminStationSelect = document.getElementById('adminStationSelect');
+      if (adminStationSelect) adminStationSelect.value = idx;
+
       for(let i=0; i<5; i++) {
         const tab = document.getElementById(`st-tab-${i}`);
         if(tab) {
           tab.className = i === idx
-            ? "px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/20"
-            : "px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
+            ? "px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-600 text-white shadow-sm ring-2 ring-teal-400/20 whitespace-nowrap"
+            : "px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap";
         }
       }
 
-      document.getElementById('visualizerSubTitle').innerText = data.sub;
+      const visualizerSubTitle = document.getElementById('visualizerSubTitle');
+      if (visualizerSubTitle) visualizerSubTitle.innerText = data.sub;
+
+      const crossBankTag = document.getElementById('crossBankTag');
+      if (crossBankTag) crossBankTag.innerText = `ตลิ่ง ${data.bank.toFixed(2)} ม.`;
+
       document.getElementById('kpiLevelVal').innerText = data.level.toFixed(2);
       document.getElementById('kpiFlowVal').innerText = data.flow.toFixed(1);
       document.getElementById('kpiRainVal').innerText = data.rain.toFixed(1);
@@ -573,16 +596,23 @@
       const st = (typeof STATIONS !== 'undefined' && STATIONS[currentStationIndex]) ? STATIONS[currentStationIndex] : { bank: 5.70, trendText: 'ลดลง 0.26 ม.' };
       const b = parseFloat(bank) || st.bank || 5.70;
       
-      let waterPct;
-      if (currentVal <= b) {
-        waterPct = Math.max((currentVal / b) * 72, 8);
-      } else {
-        const overflowRatio = (currentVal - b) / b;
-        waterPct = 72 + Math.min(overflowRatio * 35, 6);
-      }
-      
       const waterContainer = document.getElementById('waterContainer');
-      if (waterContainer) waterContainer.style.height = waterPct.toFixed(2) + '%';
+      if (waterContainer) {
+        if (currentVal >= b) {
+          const overflowRatio = (currentVal - b) / b;
+          const overflowPct = 72 + Math.min(overflowRatio * 35, 7);
+          waterContainer.style.height = overflowPct.toFixed(2) + '%';
+          waterContainer.style.left = '16%';
+          waterContainer.style.right = '16%';
+          waterContainer.style.zIndex = '20';
+        } else {
+          const waterPct = Math.max((currentVal / b) * 72, 8);
+          waterContainer.style.height = waterPct.toFixed(2) + '%';
+          waterContainer.style.left = '26%';
+          waterContainer.style.right = '26%';
+          waterContainer.style.zIndex = '0';
+        }
+      }
 
       const canalWaterTag = document.getElementById('canalWaterTag');
       if (canalWaterTag) canalWaterTag.innerText = currentVal.toFixed(2) + ' ม.รทก.';
@@ -609,25 +639,35 @@
         forecastTargetDisplay.className = trendDiff <= 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-rose-600 dark:text-rose-400 font-bold';
       }
 
-      // Dynamically animate trend curve SVG
-      const yStart = Math.min(Math.max(70 - (currentVal / b) * 50, 8), 68);
-      const yEnd = Math.min(Math.max(70 - (targetVal / b) * 50, 8), 68);
-      const yMid = (yStart + yEnd) / 2;
+      // Expressive Dynamic 24h AI Trend Forecast SVG Curve (Curves up/down visibly)
+      const y0 = Math.min(Math.max(68 - (currentVal / b) * 45, 10), 70);
+      const y4 = Math.min(Math.max(68 - (targetVal / b) * 45, 10), 70);
+      const dy = y4 - y0;
 
-      const trendStrokePath = document.getElementById('trendStrokePath');
-      if (trendStrokePath) trendStrokePath.setAttribute('d', `M 0,${yStart.toFixed(1)} Q 100,${(yStart - 5).toFixed(1)} 200,${yMid.toFixed(1)} T 400,${yEnd.toFixed(1)}`);
+      const wavePhase = (currentVal * 2.2) % (Math.PI * 2);
+      const y1 = Math.min(Math.max(y0 + dy * 0.25 - 8 * Math.sin(wavePhase), 8), 72);
+      const y2 = Math.min(Math.max(y0 + dy * 0.50 + 10 * Math.cos(wavePhase), 8), 72);
+      const y3 = Math.min(Math.max(y0 + dy * 0.75 - 6 * Math.sin(wavePhase + 1), 8), 72);
 
-      const trendAreaPath = document.getElementById('trendAreaPath');
-      if (trendAreaPath) trendAreaPath.setAttribute('d', `M 0,${yStart.toFixed(1)} Q 100,${(yStart - 5).toFixed(1)} 200,${yMid.toFixed(1)} T 400,${yEnd.toFixed(1)} L 400,80 L 0,80 Z`);
+      const curvePath = `M 0,${y0.toFixed(1)} C 100,${y1.toFixed(1)} 200,${y2.toFixed(1)} 300,${y3.toFixed(1)} 400,${y4.toFixed(1)}`;
+      const areaPath = `${curvePath} L 400,80 L 0,80 Z`;
 
-      const trendStartCircle = document.getElementById('trendStartCircle');
-      if (trendStartCircle) trendStartCircle.setAttribute('cy', yStart.toFixed(1));
+      const trendStrokePath = document.getElementById('trendStrokePath') || document.getElementById('chartPathLine');
+      if (trendStrokePath) trendStrokePath.setAttribute('d', curvePath);
 
-      const trendEndCircle = document.getElementById('trendEndCircle');
-      if (trendEndCircle) trendEndCircle.setAttribute('cy', yEnd.toFixed(1));
+      const trendAreaPath = document.getElementById('trendAreaPath') || document.getElementById('chartPathArea');
+      if (trendAreaPath) trendAreaPath.setAttribute('d', areaPath);
+
+      const trendStartCircle = document.getElementById('trendStartCircle') || document.getElementById('chartDotStart');
+      if (trendStartCircle) trendStartCircle.setAttribute('cy', y0.toFixed(1));
+
+      const trendEndCircle = document.getElementById('trendEndCircle') || document.getElementById('chartDotEnd');
+      if (trendEndCircle) trendEndCircle.setAttribute('cy', y4.toFixed(1));
 
       const info = getLevelInfo(currentVal, b);
-      
+
+      renderAlertMatrix(info.level, b);
+
       const statusTitle = document.getElementById('statusTitle');
       const statusBadge = document.getElementById('statusBadge');
       const statusDesc = document.getElementById('statusDesc');
